@@ -3,7 +3,7 @@ import program from '../utils/commander.js'
 
 dotenv.config({
     path: program.opts().mode === 'test' ? '.env.testing' : '.env'
-
+    
 })
 
 export default{

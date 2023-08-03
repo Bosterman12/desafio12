@@ -33,6 +33,7 @@ import jwtRouter from './routes/jwt.routes.js'
 import messagesRouter from './routes/messages.router.js'
 import fakerRouter from './faker/user.routes.js'
 import errorHandler from './middleware/errors.middleware.js'
+import { addLogger } from './utils/logger.js'
 
 
 
@@ -201,6 +202,7 @@ app.use('/api/order', orderRouter)
 app.use('/api/jwt', jwtRouter)
 app.use('/mocking', fakerRouter)
 app.use(errorHandler)
+app.use(addLogger)
 
 
 
@@ -215,6 +217,28 @@ app.get("/api/errorLogin", (req, res) => {
     res.render('errorLogin')
 })
 
+app.get('/logger', (req, res) => {
+    req.logger.warning('Alerta')
+    res.send ({ message : 'Estamos probando el logger'})
+})
+
+app.get('/operacionsencilla', (req,res) =>{
+    let sum = 0 ;
+    for (let i = 0; i<100000 ; i++) {
+        sum+=i
+    }
+    res.send({sum})
+    
+})
+
+app.get('/operacioncompleja', (req,res) =>{
+    let sum = 0 ;
+    for (let i = 0; i<5e8 ; i++) {
+        sum+=i
+    }
+    res.send({sum})
+    
+})
 
 console.log(process.argv)
 console.log(config.SECRET_KEY)

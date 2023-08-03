@@ -1,9 +1,11 @@
+import { addLogger } from "../utils/logger.js"
+
 export const testLogin = (req, res, next) => {
    
    try{
         if(!req.user){
-            //return res.status(401).send({status: "error", error: "usuario invalido"})
-            //res.render('errorLogin')
+           // return res.status(401).send({status: "error", error: "usuario invalido"})
+           res.redirect('../api/errorLogin')
         }
 
             req.session.user = {
@@ -14,14 +16,17 @@ export const testLogin = (req, res, next) => {
             //res.status(200).send({status: "sucess", payload: req.user})
             console.log(req.session.user)
            
-           //res.redirect('../api/product')
+           res.redirect('../api/product')
             
                 
             
 
            
    }catch(error) {
-        res.status(500).send({status: "error", error: error.message})
+       res.status(500).send({status: "error", error: error.message})
+
+        
+        
    }
    
    
